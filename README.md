@@ -108,14 +108,6 @@ graph TD
 
 Make sure you have Ollama installed and running with the required models (llama3.2 and mxbai-embed-large) before using this agent.
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is open source and available under the MIT License.
-
 ## Author
 
 - [Swoyam Sambhab Sahoo](https://github.com/swoyamsss)
