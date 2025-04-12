@@ -36,6 +36,9 @@ env/
 .chroma_langchain_db/
 *.db
 *.sqlite3
+chat_history/
+*.json
+*.log
 
 # OS
 .DS_Store

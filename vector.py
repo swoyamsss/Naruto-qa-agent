@@ -6,13 +6,16 @@ import os  # For file system operations
 import pandas as pd  # For CSV data handling
 
 # Load the Naruto reviews dataset
+# The CSV file contains reviews with columns: Title, Date, Best Character, Rating, Review
 df = pd.read_csv("Naruto_reviews.csv")
 
 # Initialize the embedding model
 # Using mxbai-embed-large model from Ollama for generating embeddings
+# This model converts text into high-dimensional vectors for semantic search
 embeddings = OllamaEmbeddings(model="mxbai-embed-large")
 
 # Define the location for the vector database
+# This directory will store the ChromaDB database files
 db_location = "./chroma_langchain_db"
 
 # Check if we need to create new documents or use existing ones
@@ -31,13 +34,13 @@ if add_documents:
         # Combine Title and Review for the main content
         # Store Rating, Date, and Best Character as metadata
         document = Document(
-            page_content=row["Title"] + " " + row["Review"],
+            page_content=row["Title"] + " " + row["Review"],  # Combine title and review for better context
             metadata = {
-                "rating": row["Rating"],
-                "date": row["Date"],
-                "best character": row["Best Character"]
+                "rating": row["Rating"],  # Store rating as metadata
+                "date": row["Date"],  # Store date as metadata
+                "best character": row["Best Character"]  # Store best character as metadata
             },
-            id = str(i)
+            id = str(i)  # Use row index as document ID
         )
         ids.append(str(i))
         documents.append(document)
@@ -58,5 +61,5 @@ if add_documents:
 # This will be used to find relevant documents based on queries
 # k=10 means it will return the 10 most relevant documents
 retriver = vector_store.as_retriever(
-    search_kwargs={"k":10}
+    search_kwargs={"k":10}  # Number of most relevant documents to retrieve
 )
